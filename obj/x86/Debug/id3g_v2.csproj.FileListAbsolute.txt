@@ -1,0 +1,21 @@
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Form1.resources
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Form2.resources
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Options.resources
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Properties.Resources.resources
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.csproj.GenerateResource.Cache
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\bin\Debug\id3g_v2.exe
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\bin\Debug\id3g_v2.pdb
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.exe
+c:\users\максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.pdb
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.exe
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.pdb
+F:\id3g_v2\id3g_v2\bin\Debug\id3g_v2.exe
+F:\id3g_v2\id3g_v2\bin\Debug\id3g_v2.pdb
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Form1.resources
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Form2.resources
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Options.resources
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.Properties.Resources.resources
+F:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.csproj.GenerateResource.Cache
+C:\Users\Максим\documents\visual studio 2010\Projects\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.csprojResolveAssemblyReference.cache
+H:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.exe
+H:\id3g_v2\id3g_v2\obj\x86\Debug\id3g_v2.pdb
