@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 namespace id3g_v2
 {
@@ -74,6 +76,9 @@ namespace id3g_v2
             Options.func[0].Enabled = false;
             Options.func[0].Click += this.optsave_Click;
             Options.func[1].Click += this.optquit_Click;
+
+            ConfigRead();
+
             this.InitializeComponent();
         }
 
@@ -110,6 +115,9 @@ namespace id3g_v2
             {
                 Program.confValues[i] = Options.target[i].SelectedIndex;
             }
+
+            ConfigWrite();
+
             Options.func[0].Enabled = false;
         }
 
@@ -130,49 +138,49 @@ namespace id3g_v2
 
         // Token: 0x0400002B RID: 43
         public static Button[] func;
-        
+
         // читает значения настроек из файла
-		private static void ConfigRead()
-		{
-			string _fileName = @"D:\note.txt"; // временный адрес для дебага
-			using (FileStream fstream = File.OpenRead(_fileName))
-			{
-				byte[] array = new byte[fstream.Length];
-				fstream.Read(array, 0, array.Length);
+        private static void ConfigRead()
+        {
+            string _fileName = @"D:\note.txt"; // временный адрес для дебага
+            using (FileStream fstream = File.OpenRead(_fileName))
+            {
+                byte[] array = new byte[fstream.Length];
+                fstream.Read(array, 0, array.Length);
 
-				// декодируем байты в строку
-				string textFromFile = System.Text.Encoding.UTF8.GetString(array);
-				
-				if (textFromFile != null) 
-				{ 
-					for (int i = 0; i < Program.confValues.Length; i++) 
-					{
-						string nameOfValue = Program.confStrings[i];
-						int indexOfValue = textFromFile.IndexOf(nameOfValue) + nameOfValue.Length+1;
-						
-						Program.confValues[i] = Convert.ToInt32(textFromFile[indexOfValue])-48; // вычитаем 48, чтобы получить нужный код символа
-					}
-				}
-			}
-		}
+                // декодируем байты в строку
+                string textFromFile = System.Text.Encoding.UTF8.GetString(array);
+                
+                if (textFromFile != null) 
+                { 
+                    for (int i = 0; i < Program.confValues.Length; i++) 
+                    {
+                        string nameOfValue = Program.confStrings[i];
+                        int indexOfValue = textFromFile.IndexOf(nameOfValue) + nameOfValue.Length+1;
+                        
+                        Program.confValues[i] = Convert.ToInt32(textFromFile[indexOfValue])-48; // вычитаем 48, чтобы получить нужный код символа
+                    }
+                }
+            }
+        }
 
-		// сохраняет настройки 
-		private static void ConfigWrite()
-		{
-			string _fileName = @"D:\note.txt";
-			
-			string configValues = "";
-			using (FileStream fstream = new FileStream(_fileName, FileMode.OpenOrCreate))
-			{
-				for (int i=0; i<Program.confValues.Length; i++)
-				{
-					configValues += Program.confStrings[i] + ":" + Program.confValues[i] + "\n";
-				}
-				
-				byte[] array = System.Text.Encoding.UTF8.GetBytes(configValues);
+        // сохраняет настройки
+        private static void ConfigWrite()
+        {
+            string _fileName = @"D:\note.txt"; // временный адрес для дебага
+            
+            string configValues = "";
+            using (FileStream fstream = new FileStream(_fileName, FileMode.OpenOrCreate))
+            {
+                for (int i=0; i<Program.confValues.Length; i++)
+                {
+                    configValues += Program.confStrings[i] + ":" + Program.confValues[i] + "\n";
+                }
+                
+                byte[] array = System.Text.Encoding.UTF8.GetBytes(configValues);
 
-				fstream.Write(array, 0, array.Length);
-			}
-		}
+                fstream.Write(array, 0, array.Length);
+            }
+        }
     }
 }
