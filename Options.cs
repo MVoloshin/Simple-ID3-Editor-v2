@@ -132,40 +132,47 @@ namespace id3g_v2
         public static Button[] func;
         
         // читает значения настроек из файла
-        private static void ConfigRead()
-        {
-            string _fileName = @"D:\note.txt";
-            using (FileStream fstream = File.OpenRead(_fileName))
-            {
-                byte[] array = new byte[fstream.Length];
-                fstream.Read(array, 0, array.Length);
+		private static void ConfigRead()
+		{
+			string _fileName = @"D:\note.txt"; // временный адрес для дебага
+			using (FileStream fstream = File.OpenRead(_fileName))
+			{
+				byte[] array = new byte[fstream.Length];
+				fstream.Read(array, 0, array.Length);
 
-                // декодируем байты в строку
-                string textFromFile = System.Text.Encoding.Default.GetString(array);
+				// декодируем байты в строку
+				string textFromFile = System.Text.Encoding.UTF8.GetString(array);
+				
+				if (textFromFile != null) 
+				{ 
+					for (int i = 0; i < Program.confValues.Length; i++) 
+					{
+						string nameOfValue = Program.confStrings[i];
+						int indexOfValue = textFromFile.IndexOf(nameOfValue) + nameOfValue.Length+1;
+						
+						Program.confValues[i] = Convert.ToInt32(textFromFile[indexOfValue])-48; // вычитаем 48, чтобы получить нужный код символа
+					}
+				}
+			}
+		}
 
-                if (textFromFile != null)
-                    for (int i = 0; i < Program.confValues.Length; i++)
-                        Program.confValues[i] = Convert.ToInt32(textFromFile[i]);
-            }
-        }
+		// сохраняет настройки
+		private static void ConfigWrite()
+		{
+			string _fileName = @"D:\note.txt"; // временный адрес для дебага
+			
+			string configValues = "";
+			using (FileStream fstream = new FileStream(_fileName, FileMode.OpenOrCreate))
+			{
+				for (int i=0; i<Program.confValues.Length; i++)
+				{
+					configValues += Program.confStrings[i] + ":" + Program.confValues[i] + "\n";
+				}
+				
+				byte[] array = System.Text.Encoding.UTF8.GetBytes(configValues);
 
-        // сохраняет настройки
-        private static void ConfigWrite()
-        {
-            string _fileName = @"D:\note.txt"; // временный адрес для дебага
-            
-            string configValues = "";
-            using (FileStream fstream = new FileStream(_fileName, FileMode.OpenOrCreate))
-            {
-                for (int i=0; i<Program.confValues.Length; i++)
-                {
-                    configValues += Program.confValues[i];
-                }
-                
-                byte[] array = System.Text.Encoding.Default.GetBytes(configValues);
-
-                fstream.Write(array, 0, array.Length);
-            }
-        }
+				fstream.Write(array, 0, array.Length);
+			}
+		}
     }
 }
