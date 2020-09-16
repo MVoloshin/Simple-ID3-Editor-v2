@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 namespace id3g_v2
 {
@@ -74,6 +76,9 @@ namespace id3g_v2
             Options.func[0].Enabled = false;
             Options.func[0].Click += this.optsave_Click;
             Options.func[1].Click += this.optquit_Click;
+
+            ConfigRead();
+
             this.InitializeComponent();
         }
 
@@ -110,6 +115,9 @@ namespace id3g_v2
             {
                 Program.confValues[i] = Options.target[i].SelectedIndex;
             }
+
+            ConfigWrite();
+
             Options.func[0].Enabled = false;
         }
 
@@ -141,11 +149,18 @@ namespace id3g_v2
                 fstream.Read(array, 0, array.Length);
 
                 // декодируем байты в строку
-                string textFromFile = System.Text.Encoding.Default.GetString(array);
-
-                if (textFromFile != null)
-                    for (int i = 0; i < Program.confValues.Length; i++)
-                        Program.confValues[i] = Convert.ToInt32(textFromFile[i]);
+                string textFromFile = System.Text.Encoding.UTF8.GetString(array);
+                
+                if (textFromFile != null) 
+                { 
+                    for (int i = 0; i < Program.confValues.Length; i++) 
+                    {
+                        string nameOfValue = Program.confStrings[i];
+                        int indexOfValue = textFromFile.IndexOf(nameOfValue) + nameOfValue.Length+1;
+                        
+                        Program.confValues[i] = Convert.ToInt32(textFromFile[indexOfValue])-48; // вычитаем 48, чтобы получить нужный код символа
+                    }
+                }
             }
         }
 
@@ -159,11 +174,10 @@ namespace id3g_v2
             {
                 for (int i=0; i<Program.confValues.Length; i++)
                 {
-                    configValues += Program.confValues[i];
+                    configValues += Program.confStrings[i] + ":" + Program.confValues[i] + "\n";
                 }
                 
-                byte[] array = System.Text.Encoding.Default.GetBytes(configValues);
-
+                byte[] array = System.Text.Encoding.UTF8.GetBytes(configValues);
                 fstream.Write(array, 0, array.Length);
             }
         }
