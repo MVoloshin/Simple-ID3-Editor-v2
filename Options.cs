@@ -156,7 +156,7 @@ namespace id3g_v2
 			}
 		}
 
-		// сохраняет настройки
+		// сохраняет настройки 
 		private static void ConfigWrite()
 		{
 			string _fileName = @"D:\note.txt";
