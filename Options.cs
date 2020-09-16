@@ -130,5 +130,42 @@ namespace id3g_v2
 
         // Token: 0x0400002B RID: 43
         public static Button[] func;
+        
+        // читает значения настроек из файла
+        private static void ConfigRead()
+        {
+            string _fileName = @"D:\note.txt";
+            using (FileStream fstream = File.OpenRead(_fileName))
+            {
+                byte[] array = new byte[fstream.Length];
+                fstream.Read(array, 0, array.Length);
+
+                // декодируем байты в строку
+                string textFromFile = System.Text.Encoding.Default.GetString(array);
+
+                if (textFromFile != null)
+                    for (int i = 0; i < Program.confValues.Length; i++)
+                        Program.confValues[i] = Convert.ToInt32(textFromFile[i]);
+            }
+        }
+
+        // сохраняет настройки
+        private static void ConfigWrite()
+        {
+            string _fileName = @"D:\note.txt"; // временный адрес для дебага
+            
+            string configValues = "";
+            using (FileStream fstream = new FileStream(_fileName, FileMode.OpenOrCreate))
+            {
+                for (int i=0; i<Program.confValues.Length; i++)
+                {
+                    configValues += Program.confValues[i];
+                }
+                
+                byte[] array = System.Text.Encoding.Default.GetBytes(configValues);
+
+                fstream.Write(array, 0, array.Length);
+            }
+        }
     }
 }
