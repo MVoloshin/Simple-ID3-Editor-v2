@@ -159,7 +159,7 @@ namespace id3g_v2
 		// сохраняет настройки
 		private static void ConfigWrite()
 		{
-			string _fileName = @"D:\note.txt"; // временный адрес для дебага
+			string _fileName = @"D:\note.txt";
 			
 			string configValues = "";
 			using (FileStream fstream = new FileStream(_fileName, FileMode.OpenOrCreate))
